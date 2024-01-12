@@ -15,7 +15,7 @@ build-local:
 
 get-model:
 	@echo downloading model....
-	wget https://huggingface.co/TheBloke/yayi2-30B-llama-GGUF/resolve/main/yayi2-30b-llama.Q2_K.gguf?download=true
+	curl -L -O https://huggingface.co/TheBloke/yayi2-30B-llama-GGUF/resolve/main/yayi2-30b-llama.Q2_K.gguf 
 
 run-sample-docker:
 	@echo running sample inference using docker...
@@ -29,8 +29,10 @@ run-sample-local:
 	@echo running a sample inference locally....
 	cd llama.cpp && \
 	./main -m ../yayi2-30b-llama.Q2_K.gguf \
-	-n 256 --grammar-file ../grammar/grammar.gbnf \
-	-p 'man name Josh has a car from ford company it was launchd on year 1994; josn:'
+	-n 100 --grammar-file ../grammar/grammar.gbnf \
+	-p 'man name Josh has a car from ford company it was launchd on year 1994; josn:' > output.txt
+	cat output.txt
+	cd ..
 
 deploy-server-docker:
 	@echo deploying server on the docker. Open "localhost:8080" on your browser
